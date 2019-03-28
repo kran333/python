@@ -1,4 +1,0 @@
-Welcome to Kubes World 
-Hello World 
-Good Bye 
-Good Morning
