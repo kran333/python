@@ -1,0 +1,66 @@
+2.	Department information where no employees have those department numbers
+
+	SELECT * FROM EMPLOYEE WHERE DEPARTMENT_NUMBER = 
+	(SELECT DEPARTMENT_NUMBER FROM DEPARTMENT WHERE DEPARTMENT_NAME = NULL)
+
+3.	Employee information for employees with valid department numbers
+	
+	SELECT E.employee_number, D.department_name
+	FROM EMPLOYEE E  INNER JOIN DEPARTMENT D ON E.department_number=D.department_number;
+
+4.	Employee information for employees with invalid or null department numbers
+	
+	SELECT *FROM EMPLOYEE WHERE department_number IS null OR department_number 
+	Not IN (SELECT department_number FROM DEPARTMENT);
+
+5.	Information for employees who have null or invalid department numbers.
+
+	SELECT *FROM EMPLOYEE WHERE department_number = NULL OR department_number = 'INVALID'
+
+7.	Show the employee number, department number and job code of employees whose department is less than 400.
+	Sort the result by job code within department.
+
+	SELECT E.EMPLOYEE_NUMBER,E.JOB_CODE,E.FIRST_NAME,E.LAST_NAME,D.department_name
+	FROM EMPLOYEE E INNER JOIN DEPARTMENT D ON E.department_number = D.department_number WHERE D.department_number<400 ORDER BY JOB_CODE;
+
+8.	SELECT DISTINCT manager_employee_number FROM EMPLOYEE ORDER BY manager_employee_number
+
+9. 	SELECT first_name,last_name FROM EMPLOYEE WHERE last_name LIKE '%ST%'
+
+10.	SELECT first_name,last_name,employee_number FROM EMPLOYEE WHERE salary_amount < 35000 OR department_number = 403;
+
+11.	SELECT first_name,department_number,job_code FROM EMPLOYEE WHERE department_number = 401 OR department_number =  402 AND job_code = '432101' OR job_code = '432101';
+
+12.	SELECT employee_number,department_number,salary_amount FROM EMPLOYEE WHERE (department_number = 301 OR department_number = 401) AND salary_amount > 30000 
+	ORDER BY department_number,salary_amount;
+
+13.	SELECT first_name,last_name,salary_amount FROM EMPLOYEE WHERE department_number = '301' ORDER BY first_name;
+
+14.	SELECT now(),USER(),DATABASE(),TIME('2009-05-18 15:45:57.005678')
+
+15.	SELECT first_name,last_name FROM EMPLOYEE WHERE manager_employee_number IN (SELECT manager_employee_number FROM department);
+
+16.	SELECT first_name,salary_amount FROM EMPLOYEE WHERE manager_employee_number IN 
+	(SELECT manager_employee_number FROM department where budget_amount > 70000) AND (salary_amount > 30000);
+
+17.	SELECT E.first_name,E.EMPLOYEE_NUMBER,E.FIRST_NAME,E.LAST_NAME,D.department_name
+	FROM EMPLOYEE E INNER JOIN DEPARTMENT D ON E.department_number = D.department_number 
+	WHERE D.department_name = 'customer support ';
+
+18.	SELECT employee_number,first_name FROM EMPLOYEE WHERE department_number = 600;
+
+19.	SELECT E.first_name,D.department_name,MAX(E.salary_amount) FROM EMPLOYEE E INNER JOIN department D ON D.department_number = E.department_number 
+	GROUP BY D.department_name;
+
+20.	SELECT E.first_name,D.department_name FROM EMPLOYEE E INNER JOIN department D ON D.department_number = E.department_number 
+	WHERE E.salary_amount IN (SELECT AVG(salary_amount)  FROM EMPLOYEE GROUP BY department_number);
+
+21.	SELECT employee_number,first_name FROM EMPLOYEE WHERE EXISTS (SELECT employee_number FROM EMPLOYEE WHERE department_number = 600)
+
+22.	SELECT E.employee_number,J.description ,E.first_name FROM EMPLOYEE E INNER JOIN job_TYPE J ON J.job_code = E.job_code WHERE E.job_code IS NULL;
+
+23.	SELECT E.first_name,D.department_name,MAX(E.salary_amount) FROM EMPLOYEE E INNER JOIN department D ON D.department_number = E.department_number 
+	GROUP BY D.department_name;
+
+24.	SELECT E.first_name,D.department_name FROM EMPLOYEE E INNER JOIN department D ON D.department_number = E.department_number 
+	WHERE E.salary_amount IN (SELECT AVG(salary_amount)  FROM EMPLOYEE GROUP BY department_number);
