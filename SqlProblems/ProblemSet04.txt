@@ -1,0 +1,37 @@
+1) select employee.last_name,employee.job_code from employee  LEFT OUTER JOIN department  ON employee.department_number=department.department_number where 
+   employee.job_code IS NULL order by employee.last_name ASC;
+
+2) select department.* from department where department_number not in(select department_number from employee);
+
+3) select employee.last_name,employee.first_name,department.department_number from employee inner join department on employee.department_number=
+   department.department_number;
+
+4) select * from employee where department_number is Null or department_number not in(select department_number from department);
+
+5) select manager_employee_number from department where manager_employee_number not in (select manager_employee_number from employee);
+
+6) select employee.employee_number,department.department_number,employee.job_code from employee 
+   inner join department on employee.department_number=department.department_number order by employee.job_code desc ;
+
+7) select employee_number from employee where employee_number in (select manager_employee_number from department);
+   select distinct employee_number from employee Inner join department on employee.employee_number=department.manager_employee_number;
+
+8) select concat(first_name,',',last_name) as 'FullName' from employee where last_name like '%ra%'; 
+
+9) select concat(employee.first_name,'.',employee.last_name) as fullname from employee inner join department on
+   employee.department_number=department.department_number where employee.salary_amount*12>35000*67 
+   or employee.department_number=1;
+
+10) select concat(last_name,'.',first_name),department_number,job_code from employee where (department_number=1 or 
+    department_number=2) AND (job_code=100 or job_code=101);
+
+11) select employee_number,department_number,salary_amount,row_number() 
+    over (partition by department_number order by salary_amount,department_number)  
+    from employee where (department_number=1 or department_number=2 or department_number=7) 
+    AND (salary_amount*69>30000*69);
+
+12) select concat(first_name,'.',last_name),salary_amount from employee order by first_name ;
+
+13) select concat(last_name,'.',first_name) from employee where round(datediff(CURDATE(),hire_date)/365)>=10;
+
+14) select curdate(),current_time(),current_user(),database();
